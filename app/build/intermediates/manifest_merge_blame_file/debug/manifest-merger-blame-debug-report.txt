@@ -1,0 +1,264 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.beaconscanner"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="34" />
+10
+11    <!-- Android 11 이하 호환 -->
+12    <uses-permission
+12-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:6:5-94
+13        android:name="android.permission.BLUETOOTH"
+13-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:6:22-65
+14        android:maxSdkVersion="30"
+14-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:6:66-92
+15        android:required="false" />
+15-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:9:9-33
+16    <uses-permission
+16-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:7:5-100
+17        android:name="android.permission.BLUETOOTH_ADMIN"
+17-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:7:22-71
+18        android:maxSdkVersion="30"
+18-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:7:72-98
+19        android:required="false" />
+19-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:12:9-33
+20
+21    <!-- Android 12(s) 이상 전용 -->
+22    <uses-permission
+22-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:10:5-12:30
+23        android:name="android.permission.BLUETOOTH_SCAN"
+23-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:10:22-70
+24        android:usesPermissionFlags="neverForLocation" />
+24-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:11:9-55
+25    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+25-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:13:5-75
+25-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:13:22-73
+26
+27    <!-- 위치 권한 -->
+28    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+28-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:16:5-78
+28-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:16:22-76
+29    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+29-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:17:5-80
+29-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:17:22-78
+30    <uses-permission android:name="android.permission.INTERNET" />
+30-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:18:5-66
+30-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:18:22-64
+31
+32    <!-- BLE 하드웨어 필수 선언 -->
+33    <uses-feature
+33-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:21:5-89
+34        android:name="android.hardware.bluetooth_le"
+34-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:21:19-63
+35        android:required="true" />
+35-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:21:64-87
+36
+37    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+37-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:13:5-86
+37-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:13:22-83
+38    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+38-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:14:5-81
+38-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:14:22-78
+39
+40    <permission
+40-->[androidx.core:core:1.12.0] C:\Program Files\Java\jdk-17\caches\transforms-3\d1e4a685b1001794fbcfe4ee9c157a7e\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
+41        android:name="com.example.beaconscanner.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+41-->[androidx.core:core:1.12.0] C:\Program Files\Java\jdk-17\caches\transforms-3\d1e4a685b1001794fbcfe4ee9c157a7e\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
+42        android:protectionLevel="signature" />
+42-->[androidx.core:core:1.12.0] C:\Program Files\Java\jdk-17\caches\transforms-3\d1e4a685b1001794fbcfe4ee9c157a7e\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
+43
+44    <uses-permission android:name="com.example.beaconscanner.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+44-->[androidx.core:core:1.12.0] C:\Program Files\Java\jdk-17\caches\transforms-3\d1e4a685b1001794fbcfe4ee9c157a7e\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
+44-->[androidx.core:core:1.12.0] C:\Program Files\Java\jdk-17\caches\transforms-3\d1e4a685b1001794fbcfe4ee9c157a7e\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
+45
+46    <application
+46-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:23:5-40:19
+47        android:name="com.example.beaconscanner.App"
+47-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:24:9-28
+48        android:allowBackup="true"
+48-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:25:9-35
+49        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+49-->[androidx.core:core:1.12.0] C:\Program Files\Java\jdk-17\caches\transforms-3\d1e4a685b1001794fbcfe4ee9c157a7e\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
+50        android:debuggable="true"
+51        android:extractNativeLibs="false"
+52        android:icon="@mipmap/ic_launcher"
+52-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:26:9-43
+53        android:label="Beacon Scanner"
+53-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:27:9-39
+54        android:networkSecurityConfig="@xml/network_security_config"
+54-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:31:9-69
+55        android:roundIcon="@mipmap/ic_launcher_round"
+55-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:28:9-54
+56        android:supportsRtl="true"
+56-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:29:9-35
+57        android:testOnly="true"
+58        android:theme="@style/Theme.BeaconScanner" >
+58-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:30:9-51
+59        <activity
+59-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:32:9-39:20
+60            android:name="com.example.beaconscanner.MainActivity"
+60-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:33:13-41
+61            android:exported="true" >
+61-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:34:13-36
+62            <intent-filter>
+62-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:35:13-38:29
+63                <action android:name="android.intent.action.MAIN" />
+63-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:36:17-68
+63-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:36:25-66
+64
+65                <category android:name="android.intent.category.LAUNCHER" />
+65-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:37:17-76
+65-->C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:37:27-74
+66            </intent-filter>
+67        </activity>
+68
+69        <receiver
+69-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:18:9-26:20
+70            android:name="org.altbeacon.beacon.startup.StartupBroadcastReceiver"
+70-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:19:13-81
+71            android:exported="false" >
+71-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:20:13-37
+72            <intent-filter>
+72-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:21:13-25:29
+73                <action android:name="android.intent.action.BOOT_COMPLETED" />
+73-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:22:17-79
+73-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:22:25-76
+74                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+74-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:23:17-87
+74-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:23:25-84
+75                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+75-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:24:17-90
+75-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:24:25-87
+76            </intent-filter>
+77        </receiver>
+78
+79        <service
+79-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:28:9-34:38
+80            android:name="org.altbeacon.beacon.service.BeaconService"
+80-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:29:13-70
+81            android:enabled="true"
+81-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:30:13-35
+82            android:exported="false"
+82-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:31:13-37
+83            android:foregroundServiceType="location"
+83-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:32:13-53
+84            android:isolatedProcess="false"
+84-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:33:13-44
+85            android:label="beacon" />
+85-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:34:13-35
+86        <service
+86-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:35:9-38:40
+87            android:name="org.altbeacon.beacon.BeaconIntentProcessor"
+87-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:36:13-70
+88            android:enabled="true"
+88-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:37:13-35
+89            android:exported="false" />
+89-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:38:13-37
+90        <service
+90-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:39:9-49:19
+91            android:name="org.altbeacon.beacon.service.ScanJob"
+91-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:40:13-64
+92            android:exported="false"
+92-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:41:13-37
+93            android:permission="android.permission.BIND_JOB_SERVICE" >
+93-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:42:13-69
+94            <meta-data
+94-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:43:13-45:45
+95                android:name="immediateScanJobId"
+95-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:44:17-50
+96                android:value="208352939" />
+96-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:45:17-42
+97            <meta-data
+97-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:46:13-48:45
+98                android:name="periodicScanJobId"
+98-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:47:17-49
+99                android:value="208352940" />
+99-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:48:17-42
+100        </service>
+101        <service
+101-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:50:9-57:19
+102            android:name="org.altbeacon.bluetooth.BluetoothTestJob"
+102-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:51:13-68
+103            android:exported="false"
+103-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:52:13-37
+104            android:permission="android.permission.BIND_JOB_SERVICE" >
+104-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:53:13-69
+105            <meta-data
+105-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:54:13-56:46
+106                android:name="jobId"
+106-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:55:17-37
+107                android:value="1799803768" />
+107-->[org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:56:17-43
+108        </service>
+109
+110        <provider
+110-->[androidx.emoji2:emoji2:1.2.0] C:\Program Files\Java\jdk-17\caches\transforms-3\9dba3473c2e7ab91e493b9371a42d8d3\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+111            android:name="androidx.startup.InitializationProvider"
+111-->[androidx.emoji2:emoji2:1.2.0] C:\Program Files\Java\jdk-17\caches\transforms-3\9dba3473c2e7ab91e493b9371a42d8d3\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+112            android:authorities="com.example.beaconscanner.androidx-startup"
+112-->[androidx.emoji2:emoji2:1.2.0] C:\Program Files\Java\jdk-17\caches\transforms-3\9dba3473c2e7ab91e493b9371a42d8d3\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+113            android:exported="false" >
+113-->[androidx.emoji2:emoji2:1.2.0] C:\Program Files\Java\jdk-17\caches\transforms-3\9dba3473c2e7ab91e493b9371a42d8d3\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+114            <meta-data
+114-->[androidx.emoji2:emoji2:1.2.0] C:\Program Files\Java\jdk-17\caches\transforms-3\9dba3473c2e7ab91e493b9371a42d8d3\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+115                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+115-->[androidx.emoji2:emoji2:1.2.0] C:\Program Files\Java\jdk-17\caches\transforms-3\9dba3473c2e7ab91e493b9371a42d8d3\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+116                android:value="androidx.startup" />
+116-->[androidx.emoji2:emoji2:1.2.0] C:\Program Files\Java\jdk-17\caches\transforms-3\9dba3473c2e7ab91e493b9371a42d8d3\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+117            <meta-data
+117-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Program Files\Java\jdk-17\caches\transforms-3\f96262b739e7235dd07a97d871a1b1da\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:29:13-31:52
+118                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+118-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Program Files\Java\jdk-17\caches\transforms-3\f96262b739e7235dd07a97d871a1b1da\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:30:17-78
+119                android:value="androidx.startup" />
+119-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Program Files\Java\jdk-17\caches\transforms-3\f96262b739e7235dd07a97d871a1b1da\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:31:17-49
+120            <meta-data
+120-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+121                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+121-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+122                android:value="androidx.startup" />
+122-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+123        </provider>
+124
+125        <receiver
+125-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+126            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+126-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+127            android:directBootAware="false"
+127-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+128            android:enabled="true"
+128-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+129            android:exported="true"
+129-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+130            android:permission="android.permission.DUMP" >
+130-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+131            <intent-filter>
+131-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+132                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+132-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+132-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+133            </intent-filter>
+134            <intent-filter>
+134-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+135                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+135-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+135-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+136            </intent-filter>
+137            <intent-filter>
+137-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+138                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+138-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+138-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+139            </intent-filter>
+140            <intent-filter>
+140-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+141                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+141-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+141-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Program Files\Java\jdk-17\caches\transforms-3\ee77c6148e535550acd02ec4a55fcb7f\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+142            </intent-filter>
+143        </receiver>
+144    </application>
+145
+146</manifest>
