@@ -10,31 +10,25 @@ object LocationEstimator {
         override fun toString() = "col=$col, row=$row"
     }
 
-    /**
-     * Path-loss 공식: d = 10 ^ ((txPower - RSSI) / (10 * n))
-     * RSSI 0이면 신호 없음 → MAX_VALUE 반환
-     */
+    // RSSI -> 거리 변환(path-loss 공식)
     fun rssiToDistance(rssi: Int, txPower: Int = -65): Double {
         if (rssi == 0) return Double.MAX_VALUE
         val exponent = (txPower - rssi) / (10.0 * BeaconConfig.PATH_LOSS_N)
-        return 10.0.pow(exponent).coerceIn(0.1, 30.0)   // 0.1m~30m 범위로 클램프
+        return 10.0.pow(exponent).coerceIn(0.1, 30.0)   // 0.1m~30m 범위로 제한
     }
 
-    /**
-     * Weighted Centroid 위치 추정
-     * - 각 비콘 가중치 = 1 / d²  (가까울수록 가중치 ↑)
-     * - 비콘 3개 미만 식별 시 null 반환
-     *
-     * beaconDistances: MAC 주소 → 추정 거리(m) 맵
-     */
+    // 가중 중심 방식 위치 추정
     fun estimatePosition(beaconDistances: Map<String, Double>): Position? {
-        val matched = BeaconConfig.BEACONS.filter { it.mac in beaconDistances }
-        if (matched.size < 3) return null
+        val matched = BeaconConfig.BEACONS
+            .filter { it.key in beaconDistances }
+            .sortedBy { beaconDistances[it.key] ?: Double.MAX_VALUE }
+            .take(3)
+        if (matched.isEmpty()) return null
 
         var wx = 0.0;  var wy = 0.0;  var wsum = 0.0
 
         for (info in matched) {
-            val d = beaconDistances[info.mac] ?: continue
+            val d = beaconDistances[info.key] ?: continue
             val w = 1.0 / (d * d).coerceAtLeast(0.0001)
             wx   += info.x * w
             wy   += info.y * w
@@ -48,9 +42,7 @@ object LocationEstimator {
         )
     }
 
-    /**
-     * 실수 좌표 → 그리드 셀 인덱스
-     */
+    // 좌표 -> 그리드 셀 변환
     fun toGridCell(
         pos: Position,
         cellSize: Double = BeaconConfig.GRID_CELL_SIZE

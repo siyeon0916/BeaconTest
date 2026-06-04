@@ -5,7 +5,6 @@ import android.bluetooth.BluetoothManager
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Color
-import android.location.Location
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -30,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var beaconManager: BeaconManager
     private lateinit var adapter: BeaconAdapter
 
-    // 비콘 캐시: MAC 주소를 키로 마지막으로 받은 비콘 저장
+    // 비콘 캐시
     private val beaconCache = mutableMapOf<String, CachedBeacon>()
 
     // 화면 갱신용 Handler
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private val refreshInterval = 500L  // 0.5초마다 화면 갱신
 
     // 비콘이 이 시간(ms) 동안 안 잡히면 목록에서 제거
-    private val beaconTimeoutMs = 8000L
+    private val beaconTimeoutMs = 4000L
 
     private lateinit var btnScan: Button
     private lateinit var btnStop: Button
@@ -52,34 +51,38 @@ class MainActivity : AppCompatActivity() {
         private const val PERMISSION_REQUEST_CODE = 1001
     }
 
-    // 비콘 캐시 데이터 클래스
+    // 캐시 항목
     data class CachedBeacon(
         val beacon: Beacon,
         val lastSeenMs: Long,
-        val rssiHistory: ArrayDeque<Int> = ArrayDeque(5) // 최근 5개 RSSI 저장
+        val rssiHistory: ArrayDeque<Int> = ArrayDeque(5) // 최근 5개 RSSI
     )
 
-    // 화면 주기적 갱신 Runnable
+    // 화면 갱신 루프
     private val refreshRunnable = object : Runnable {
         override fun run() {
             val now = System.currentTimeMillis()
 
-            // 타임아웃된 비콘 제거
+            // 오래된 비콘 제거
             val expired = beaconCache.entries.filter { now - it.value.lastSeenMs > beaconTimeoutMs }
             expired.forEach { beaconCache.remove(it.key) }
 
-            // 화면 업데이트
+            // UI 갱신
             updateUI()
-            val distances = beaconCache.values.associate { cached ->
+            val distances = beaconCache.values.mapNotNull { cached ->
+                val key = beaconKey(cached.beacon)
+                val configInfo = BeaconConfig.BEACONS.find { it.key == key } ?: return@mapNotNull null
                 val avgRssi = cached.rssiHistory.average().toInt()
-                cached.beacon.bluetoothAddress to LocationEstimator.rssiToDistance(avgRssi)
-            }
+                val dist = LocationEstimator.rssiToDistance(avgRssi, configInfo.txPower)
+                key to dist
+                }
+                .toMap()
             val position = LocationEstimator.estimatePosition(distances)
             if (position != null) {
-                val rssiMap = beaconCache.values.associate { cached ->
-                    cached.beacon.bluetoothAddress to cached.rssiHistory.average().toInt()
-                }
                 sendToServer(position.x, position.y)
+                tvLocation.text = "추정 위치 : X=%.2f m, Y = %.2f m".format(position.x, position.y)
+            } else {
+                tvLocation.text = "위치 추정 중 ... (등록 비콘 감지 필요)"
             }
             handler.postDelayed(this, refreshInterval)
         }
@@ -104,9 +107,9 @@ class MainActivity : AppCompatActivity() {
 
         beaconManager = BeaconManager.getInstanceForApplication(this)
 
-        // 스캔 주기 최적화
-        beaconManager.foregroundScanPeriod = 2000L       // 스캔 시간 2.0초
-        beaconManager.foregroundBetweenScanPeriod = 0L  // 스캔 사이 대기 0초 (연속 스캔)
+        // 스캔 주기 설정
+        beaconManager.foregroundScanPeriod = 2000L       // 2초 스캔
+        beaconManager.foregroundBetweenScanPeriod = 0L  // 연속 스캔
 
         btnScan.setOnClickListener { checkPermissionsAndScan() }
         btnStop.setOnClickListener { stopScan() }
@@ -116,7 +119,7 @@ class MainActivity : AppCompatActivity() {
         regionViewModel.rangedBeacons.observe(this) { beacons ->
             val now = System.currentTimeMillis()
             for (beacon in beacons) {
-                val key = beacon.bluetoothAddress
+                val key = beaconKey(beacon)
                 val existing = beaconCache[key]
                 val history = existing?.rssiHistory ?: ArrayDeque(5)
                 if (history.size >= 5) history.removeFirst()
@@ -177,7 +180,7 @@ class MainActivity : AppCompatActivity() {
         tvStatus.setTextColor(Color.parseColor("#22C55E"))
         tvEmpty.text = "스캔 중... 비콘을 탐색하고 있습니다"
 
-        // 화면 주기적 갱신 시작
+        // 갱신 시작
         handler.post(refreshRunnable)
     }
 
@@ -200,7 +203,7 @@ class MainActivity : AppCompatActivity() {
         tvCount.text = "${beaconCache.size}"
         tvStrong.text = "$strong"
         tvEmpty.visibility = if (beaconCache.isEmpty())
-            android.view.View.VISIBLE else android.view.View.GONE
+            View.VISIBLE else View.GONE
     }
 
     override fun onDestroy() {
@@ -208,20 +211,26 @@ class MainActivity : AppCompatActivity() {
         handler.removeCallbacks(refreshRunnable)
         beaconManager.stopRangingBeacons(Region("all-beacons", null, null, null))
     }
+    private val httpClient = OkHttpClient()
     private fun sendToServer(x: Double, y: Double) {
-        val client = OkHttpClient()
         val json = """{"x":$x,"y":$y}"""
         val body = json.toRequestBody("application/json".toMediaType())
         val request = Request.Builder()
-            .url("http://192.168.0.3:3000/location")
+            .url("${BeaconConfig.SERVER_URL}/location")
             .post(body)
             .build()
         Thread {
             try {
-                client.newCall(request).execute()
+                httpClient.newCall(request).execute()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }.start()
+    }
+    private fun beaconKey(beacon: Beacon): String {
+        val uuid = beacon.id1?.toString()?.uppercase() ?: "UNKNOWN"
+        val major = beacon.id2?.toInt() ?: 0
+        val minor = beacon.id3?.toInt() ?: 0
+        return "$uuid-$major-$minor"
     }
 }

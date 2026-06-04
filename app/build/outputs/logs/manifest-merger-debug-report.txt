@@ -78,27 +78,29 @@ MERGED from [org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\
 	android:name
 		ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:7:22-71
 uses-permission#android.permission.BLUETOOTH_SCAN
-ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:10:5-12:30
-	android:usesPermissionFlags
-		ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:11:9-55
+ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:10:5-11:30
 	tools:targetApi
-		ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:12:9-28
+		ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:11:9-28
 	android:name
 		ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:10:22-70
 uses-permission#android.permission.BLUETOOTH_CONNECT
-ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:13:5-75
+ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:12:5-75
 	android:name
-		ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:13:22-73
+		ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:12:22-73
 uses-permission#android.permission.ACCESS_FINE_LOCATION
-ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:16:5-78
+ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:15:5-78
 	android:name
-		ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:16:22-76
+		ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:15:22-76
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
-ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:17:5-80
+ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:16:5-80
 MERGED from [org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:15:5-81
 MERGED from [org.altbeacon:android-beacon-library:2.20.3] C:\Program Files\Java\jdk-17\caches\transforms-3\aef1b7fc2a8017074519955a8f162349\transformed\android-beacon-library-2.20.3\AndroidManifest.xml:15:5-81
 	android:name
-		ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:17:22-78
+		ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:16:22-78
+uses-permission#android.permission.ACCESS_BACKGROUND_LOCATION
+ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:17:5-84
+	android:name
+		ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:17:22-82
 uses-permission#android.permission.INTERNET
 ADDED from C:\Users\siyeo\Downloads\BeaconScanner\app\src\main\AndroidManifest.xml:18:5-66
 	android:name

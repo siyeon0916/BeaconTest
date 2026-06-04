@@ -10,7 +10,7 @@ import org.altbeacon.beacon.Beacon
 class BeaconAdapter(private val beacons: MutableList<Beacon>) :
     RecyclerView.Adapter<BeaconAdapter.ViewHolder>() {
 
-    // MainActivity의 캐시 참조 (RSSI 평균, lastSeen 접근용)
+    // 비콘 캐시 참조
     private var cache: Map<String, MainActivity.CachedBeacon> = emptyMap()
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -34,7 +34,7 @@ class BeaconAdapter(private val beacons: MutableList<Beacon>) :
         val beacon = beacons[position]
         val cached = cache[beacon.bluetoothAddress]
 
-        // RSSI: 최근 5회 평균값 사용 (안정적)
+        // 최근 5회 RSSI 평균
         val avgRssi = cached?.rssiHistory?.average()?.toInt() ?: beacon.rssi
         val rawRssi = beacon.rssi
 
@@ -59,8 +59,8 @@ class BeaconAdapter(private val beacons: MutableList<Beacon>) :
         holder.tvSignalLabel.text = "${BeaconUtils.rssiLabel(avgRssi)} (현재: $rawRssi)"
         holder.tvSignalLabel.setTextColor(BeaconUtils.rssiColor(avgRssi))
 
-        // 거리 (평균 RSSI 기반으로 계산)
-        val dist = beacon.distance
+        // 거리 계산
+        val dist = LocationEstimator.rssiToDistance(avgRssi, beacon.txPower)
         holder.tvDistance.text = "거리: ${"%.2f".format(dist)} m"
         holder.tvTxPower.text = "TX: ${beacon.txPower} dBm"
         holder.tvMac.text = "MAC: ${beacon.bluetoothAddress}"
