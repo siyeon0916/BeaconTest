@@ -19,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import okhttp3.Call
+import okhttp3.Callback
 import org.altbeacon.beacon.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -197,9 +198,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun stopScan() {
         beaconManager.stopRangingBeacons(Region("all-beacons", null, null, null))
-        if (beaconManager.isBound(this)) {
-            beaconManager.unbind(this)
-        }
         handler.removeCallbacks(refreshRunnable)
         btnScan.isEnabled = true
         btnStop.isEnabled = false
@@ -233,12 +231,12 @@ class MainActivity : AppCompatActivity() {
             .url("${BeaconConfig.SERVER_URL}/location")
             .post(body)
             .build()
-        httpClient.newCall(request).enqueue(object : okhttp3.Callback {
-            override fun onFailure(call: okhttp3.Call, e: java.io.IOException) {
+        httpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
                 e.printStackTrace()
             }
 
-            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+            override fun onResponse(call: Call, response: Response) {
                 response.close()
             }
         })

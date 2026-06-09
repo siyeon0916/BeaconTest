@@ -1,7 +1,5 @@
 package com.example.beaconscanner
 
-import com.example.beaconscanner.BuildConfig
-
 object BeaconConfig {
 
     data class BeaconInfo(
