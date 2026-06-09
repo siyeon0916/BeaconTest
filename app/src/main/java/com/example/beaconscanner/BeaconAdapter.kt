@@ -60,7 +60,10 @@ class BeaconAdapter(private val beacons: MutableList<Beacon>) :
         holder.tvSignalLabel.setTextColor(BeaconUtils.rssiColor(avgRssi))
 
         // 거리 계산
-        val dist = LocationEstimator.rssiToDistance(avgRssi, beacon.txPower)
+        val configTxPower = BeaconConfig.BEACONS.find {
+            it.key == "${beacon.id1?.toString()?.uppercase()}-${beacon.id2?.toInt()}-${beacon.id3?.toInt()}"
+        }?.txPower ?: beacon.txPower
+        val dist = LocationEstimator.rssiToDistance(avgRssi, configTxPower)
         holder.tvDistance.text = "거리: ${"%.2f".format(dist)} m"
         holder.tvTxPower.text = "TX: ${beacon.txPower} dBm"
         holder.tvMac.text = "MAC: ${beacon.bluetoothAddress}"

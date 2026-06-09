@@ -1,7 +1,6 @@
 package com.example.beaconscanner
 
-import com.example.beaconscanner.BeaconConfig
-import org.altbeacon.beacon.BuildConfig
+import com.example.beaconscanner.BuildConfig
 
 object BeaconConfig {
 

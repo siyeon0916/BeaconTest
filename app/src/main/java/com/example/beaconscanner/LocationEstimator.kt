@@ -23,7 +23,7 @@ object LocationEstimator {
             .filter { it.key in beaconDistances }
             .sortedBy { beaconDistances[it.key] ?: Double.MAX_VALUE }
             .take(3)
-        if (matched.isEmpty()) return null
+        if (matched.size < 2) return null
 
         var wx = 0.0;  var wy = 0.0;  var wsum = 0.0
 

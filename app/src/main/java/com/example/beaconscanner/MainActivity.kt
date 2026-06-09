@@ -18,11 +18,14 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import okhttp3.Call
 import org.altbeacon.beacon.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.Response
+import java.io.IOException
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +34,8 @@ class MainActivity : AppCompatActivity() {
 
     // 비콘 캐시
     private val beaconCache = mutableMapOf<String, CachedBeacon>()
+
+    private var lastSentPosition: LocationEstimator.Position? = null
 
     // 화면 갱신용 Handler
     private val handler = Handler(Looper.getMainLooper())
@@ -79,7 +84,13 @@ class MainActivity : AppCompatActivity() {
                 .toMap()
             val position = LocationEstimator.estimatePosition(distances)
             if (position != null) {
-                sendToServer(position.x, position.y)
+                val last = lastSentPosition
+                val moved = last == null ||
+                        Math.hypot(position.x - last.x, position.y - last.y) > 0.3 // 30cm 이상 이동 시만 전송
+                if (moved) {
+                    sendToServer(position.x, position.y )
+                    lastSentPosition = position
+                }
                 tvLocation.text = "추정 위치 : X=%.2f m, Y = %.2f m".format(position.x, position.y)
             } else {
                 tvLocation.text = "위치 추정 중 ... (등록 비콘 감지 필요)"
@@ -186,6 +197,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun stopScan() {
         beaconManager.stopRangingBeacons(Region("all-beacons", null, null, null))
+        if (beaconManager.isBound(this)) {
+            beaconManager.unbind(this)
+        }
         handler.removeCallbacks(refreshRunnable)
         btnScan.isEnabled = true
         btnStop.isEnabled = false
@@ -219,13 +233,15 @@ class MainActivity : AppCompatActivity() {
             .url("${BeaconConfig.SERVER_URL}/location")
             .post(body)
             .build()
-        Thread {
-            try {
-                httpClient.newCall(request).execute()
-            } catch (e: Exception) {
+        httpClient.newCall(request).enqueue(object : okhttp3.Callback {
+            override fun onFailure(call: okhttp3.Call, e: java.io.IOException) {
                 e.printStackTrace()
             }
-        }.start()
+
+            override fun onResponse(call: okhttp3.Call, response: okhttp3.Response) {
+                response.close()
+            }
+        })
     }
     private fun beaconKey(beacon: Beacon): String {
         val uuid = beacon.id1?.toString()?.uppercase() ?: "UNKNOWN"
