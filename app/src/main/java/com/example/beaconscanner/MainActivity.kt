@@ -228,7 +228,7 @@ class MainActivity : AppCompatActivity() {
         val json = """{"x":$x,"y":$y}"""
         val body = json.toRequestBody("application/json".toMediaType())
         val request = Request.Builder()
-            .url("${BeaconConfig.SERVER_URL}/location")
+            .url("${BeaconConfig.SERVER_URL}/beacon")
             .post(body)
             .build()
         httpClient.newCall(request).enqueue(object : Callback {
